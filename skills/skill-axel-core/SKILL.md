@@ -129,7 +129,6 @@ allowed-tools:
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Compact-Workflow.md" trigger="compact"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Bypass-Workflow.md" trigger="bypass"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Install-Workflow.md" trigger="install"/>
-    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Commit-Workflow.md" trigger="commit"/>
     <understanding>
       !! MANDATORY: READ → UNDERSTAND → APPLY !!
       Trigger-based workflow registry. Match resolved trigger to execute workflow.
@@ -159,7 +158,6 @@ allowed-tools:
       8. "compact" | "archive"   → compact
       9. "bypass" | "permissions"→ bypass
       10. "install" | "init"     → install
-      11. "commit"               → commit
 
     Step 3 - Match Workflow:
     - Check if resolved trigger matches workflows:operations registry
