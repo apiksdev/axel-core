@@ -1,0 +1,15 @@
+# Obsidian
+.obsidian/
+
+# Claude Code
+.claude/
+
+# VS Code
+.vscode/
+
+# Trash
+.trash/
+
+# Python
+__pycache__/
+*.pyc
