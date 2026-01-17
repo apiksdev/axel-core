@@ -1,0 +1,6 @@
+# Exclude Python scripts from language statistics
+plugins/axel/scripts/*.py linguist-vendored
+
+# Ensure Markdown and XML are detected
+*.md linguist-detectable
+*.xml linguist-detectable
