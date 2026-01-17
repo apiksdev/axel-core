@@ -1,0 +1,10 @@
+{
+  "name": "axel-core",
+  "description": "Core AXEL commands and skills",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Apiks"
+  },
+  "repository": "https://github.com/ahmetmeral/axel-core"
+}
