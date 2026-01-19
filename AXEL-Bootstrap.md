@@ -1,10 +1,11 @@
 ---
 name: axel-bootstrap
-description: AXEL Bootstrap - merged core references for AXEL DSL
+description: AXEL Bootstrap - Core syntax, enforcement rules, and understanding guidelines.
+ 
 type: reference
 ---
 
-# AXEL Bootstrap
+# AXEL-Bootstrap
 
 ```xml
 <document type="reference">
@@ -32,11 +33,20 @@ PATH RESOLUTION:
         Single document containing all essential AXEL references.
   </objective>
 
-  <documents name="on-demand-refs" load="on-demand" mode="context">
-    <read src="${CLAUDE_PLUGIN_ROOT}/references/AXEL-Checklist.md" ask="checklist, validation"/>
+  <documents name="ondemand-refs" load="on-demand" mode="context">
+    <read src="${CLAUDE_PLUGIN_ROOT}/references/AXEL-Standards.md" ask="standard, pattern, example"/>
+    <read src="${CLAUDE_PLUGIN_ROOT}/references/AXEL-Conventions.md" ask="convention, style, format"/>
     <understanding>
       !! MANDATORY: READ → UNDERSTAND → APPLY !!
-      On-demand references for standards, conventions, and validation.
+            Standards and conventions loaded when specific topics arise.
+    </understanding>
+  </documents>
+
+  <documents name="ontrigger-refs" load="on-trigger" mode="context">
+    <read src="${CLAUDE_PLUGIN_ROOT}/references/AXEL-Checklist.md" trigger="validate, pre-commit"/>
+    <understanding>
+      !! MANDATORY: READ → UNDERSTAND → APPLY !!
+            Validation checklist loaded on validate or pre-commit commands.
     </understanding>
   </documents>
 
@@ -126,6 +136,19 @@ PATH RESOLUTION:
       </enforcement>
 
       <enforcement name="code">
+
+      <!--
+      ATTRIBUTION NOTICE:
+      The following sections (TOOL OVERTRIGGERING, OVER-ENGINEERING PREVENTION,
+      CODE EXPLORATION, FRONTEND DESIGN QUALITY, THINKING SENSITIVITY) are derived
+      from Anthropic's Claude Code prompt-snippets.md documentation.
+
+      Source: github.com/anthropics/claude-code/blob/main/plugins/claude-opus-4-5-migration/
+              skills/claude-opus-4-5-migration/references/prompt-snippets.md
+
+      Copyright © Anthropic PBC. All Rights Reserved.
+      Used without explicit permission - REQUIRES REVIEW AND POTENTIAL REMOVAL.
+      -->
 
       ⛔ **TOOL OVERTRIGGERING**
 

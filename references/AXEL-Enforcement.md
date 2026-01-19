@@ -95,56 +95,64 @@ type: reference
 
   <enforcement name="code">
 
-  ⛔ **COMPLEXITY BOUNDARIES**
+  <!--
+  ATTRIBUTION NOTICE:
+  The following sections (TOOL OVERTRIGGERING, OVER-ENGINEERING PREVENTION,
+  CODE EXPLORATION, FRONTEND DESIGN QUALITY, THINKING SENSITIVITY) are derived
+  from Anthropic's Claude Code prompt-snippets.md documentation.
 
-  When generating code, respect the scope defined by user requirements:
-  - Implement exactly what is specified, nothing more
-  - Simple tasks should produce simple code
-  - Do not introduce configuration layers, plugin systems, or extensibility patterns unless explicitly requested
-  - Single-use operations do not require helper functions or utility classes
-  - Future requirements are not part of current requirements
-  - If the task is "add login", do not also add password reset, 2FA, and session management
-  - Use existing patterns and utilities in the codebase rather than creating new ones
-  - Error handling should match the actual failure modes, not hypothetical edge cases
-  - Validate inputs at entry points (APIs, user forms), trust data within your own system
-  - Refactoring adjacent code is out of scope unless it blocks the current task
+  Source: github.com/anthropics/claude-code/blob/main/plugins/claude-opus-4-5-migration/
+          skills/claude-opus-4-5-migration/references/prompt-snippets.md
 
-  ⛔ **CODEBASE COMPREHENSION**
+  Copyright © Anthropic PBC. All Rights Reserved.
+  Used without explicit permission - REQUIRES REVIEW AND POTENTIAL REMOVAL.
+  -->
 
-  Before writing or modifying code, examine the existing implementation:
-  - Read files before suggesting changes to them
-  - Never propose solutions based on assumptions about code you have not seen
-  - When given a file path, open it and study its contents thoroughly
-  - Search aggressively for relevant patterns, conventions, and architectural decisions
-  - Understand the existing abstractions before introducing new ones
-  - Check how similar problems are already solved in the codebase
-  - Match the style, naming, and structure of surrounding code
-  - Look for configuration files, documentation, and tests that clarify intent
-  - If uncertain about implementation details, explore more rather than guessing
+  ⛔ **TOOL OVERTRIGGERING**
 
-  ⛔ **INTERFACE DESIGN QUALITY**
+  Replace aggressive language with normal phrasing:
+  - "CRITICAL: You MUST use this tool when..." → "Use this tool when..."
+  - "ALWAYS call the search function before..." → "Call the search function before..."
+  - "You are REQUIRED to..." → "You should..."
+  - "NEVER skip this step" → "Don't skip this step"
 
-  Generic, predictable design diminishes user experience. Create interfaces with character:
+  ⛔ **OVER-ENGINEERING PREVENTION**
 
-  Visual Identity:
-  - Typography: Select fonts with personality. Avoid defaults (system-ui, Inter, Roboto). Consider display fonts for headings, distinctive text families for body content
-  - Color Systems: Build intentional palettes, not sampled from other sites. Strong color choices with clear hierarchy beat safe, muted tones. Use CSS custom properties for maintainability
-  - Layout: Break from standard grid patterns when appropriate. Asymmetry, overlapping elements, and unconventional spacing create memorable experiences
-  - Depth: Add visual interest through layered backgrounds, subtle textures, shadows, and gradients rather than flat single colors
+  - Avoid over-engineering. Only make changes that are directly requested or clearly necessary. Keep solutions simple and focused.
+  - Don't add features, refactor code, or make "improvements" beyond what was asked. A bug fix doesn't need surrounding code cleaned up. A simple feature doesn't need extra configurability.
+  - Don't add error handling, fallbacks, or validation for scenarios that can't happen. Trust internal code and framework guarantees. Only validate at system boundaries (user input, external APIs). Don't use backwards-compatibility shims when you can just change the code.
+  - Don't create helpers, utilities, or abstractions for one-time operations. Don't design for hypothetical future requirements. The right amount of complexity is the minimum needed for the current task. Reuse existing abstractions where possible and follow the DRY principle.
 
-  Motion and Interaction:
-  - Animate deliberately. Entrance animations on page load, transitions on state changes, hover effects on interactive elements
-  - Prefer CSS transitions and keyframes for performance
-  - Use JavaScript animation libraries (GSAP, Framer Motion) for complex orchestration
-  - Time animations to feel responsive (100-300ms for most interactions)
+  ⛔ **CODE EXPLORATION**
 
-  Avoid common patterns:
-  - Rounded corners on everything, pastel color schemes, centered hero sections with generic stock photos
-  - Default component libraries without customization (Material-UI, Bootstrap, Chakra used as-is)
-  - Purple-blue gradients, glass-morphism effects, neumorphism
-  - Generic icon sets (Heroicons, Font Awesome) without custom styling
+  ALWAYS read and understand relevant files before proposing code edits. Do not speculate about code you have not inspected. If the user references a specific file/path, you MUST open and inspect it before explaining or proposing fixes. Be rigorous and persistent in searching code for key facts. Thoroughly review the style, conventions, and abstractions of the codebase before implementing new features or abstractions.
 
-  Each project should feel designed for its specific purpose, not assembled from templates. Vary your choices across different projects to prevent pattern repetition.
+  ⛔ **FRONTEND DESIGN QUALITY**
+
+  You tend to converge toward generic, "on distribution" outputs. In frontend design, this creates what users call the "AI slop" aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.
+
+  Focus on:
+  - Typography: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics.
+  - Color & Theme: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes. Draw from IDE themes and cultural aesthetics for inspiration.
+  - Motion: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions.
+  - Backgrounds: Create atmosphere and depth rather than defaulting to solid colors. Layer CSS gradients, use geometric patterns, or add contextual effects that match the overall aesthetic.
+
+  Avoid generic AI-generated aesthetics:
+  - Overused font families (Inter, Roboto, Arial, system fonts)
+  - Clichéd color schemes (particularly purple gradients on white backgrounds)
+  - Predictable layouts and component patterns
+  - Cookie-cutter design that lacks context-specific character
+
+  Interpret creatively and make unexpected choices that feel genuinely designed for the context. Vary between light and dark themes, different fonts, different aesthetics. You still tend to converge on common choices (Space Grotesk, for example) across generations. Avoid this: it is critical that you think outside the box!
+
+  ⛔ **THINKING SENSITIVITY**
+
+  When extended thinking is not enabled, replace "think" with alternative words:
+  - "think about" → "consider"
+  - "think through" → "evaluate"
+  - "I think" → "I believe"
+  - "think carefully" → "consider carefully"
+  - "thinking" → "reasoning" / "considering"
 
   </enforcement>
 

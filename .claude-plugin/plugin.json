@@ -1,10 +1,10 @@
 {
   "name": "axel-core",
-  "description": "Core AXEL commands and skills",
-  "version": "1.0.0",
+  "description": "AXEL (AI XML Execution Language) - provides essential commands, workflows, and skills for structured AI behavior management in Claude Code",
+  "version": "1.0.1",
   "license": "MIT",
   "author": {
     "name": "Apiks"
   },
-  "repository": "https://github.com/ahmetmeral/axel-core"
+  "repository": "https://github.com/apiksdev/axel-core"
 }

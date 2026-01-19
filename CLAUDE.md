@@ -28,7 +28,7 @@ version: 1.0.0
     ]]>
   </enforcement>
 
-  <project name="axel-plugin" version="1.0.0">
+  <project name="axel-plugin" version="1.0.1">
     <description>
        AXEL (AI XML Execution Language) development environment for creating and testing
       structured AI behavior components. AXEL is an XML-based DSL plugin for Claude Code
