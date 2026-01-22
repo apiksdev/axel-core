@@ -67,6 +67,7 @@ def main():
     parser.add_argument("--name", required=True, help="Project name")
     parser.add_argument("--desc", required=True, help="Project description")
     parser.add_argument("--stack", required=True, help="Tech stack")
+    parser.add_argument("--dotnet-version", default="", help=".NET version (optional, used when stack is dotnet-csharp)")
     parser.add_argument("--locale", default="en", help="Default locale")
     parser.add_argument("--commit-format", default="conventional",
                         choices=["single-line", "conventional", "detailed"],
@@ -78,6 +79,11 @@ def main():
 
     base_path = Path(args.cwd).resolve()
     plugin_root = Path(args.plugin_root)
+
+    # Combine tech_stack with dotnet_version if applicable
+    final_stack = args.stack
+    if args.stack == "dotnet-csharp" and args.dotnet_version:
+        final_stack = f"{args.dotnet_version}-csharp"
 
     result = {
         "success": True,
@@ -98,7 +104,7 @@ def main():
         now = datetime.now()
         timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
 
-        memories_content = generate_memories(args.name, timestamp, args.stack)
+        memories_content = generate_memories(args.name, timestamp, final_stack)
         memories_path = base_path / ".claude/MEMORIES.md"
         if write_file_if_not_exists(memories_path, memories_content):
             result["files_created"].append(".claude/MEMORIES.md")
@@ -121,7 +127,7 @@ def main():
             result["files_skipped"].append(".claude/BOOTSTRAP.md")
 
         # Generate CLAUDE.md with project info (references plugin's AXEL-Bootstrap.md)
-        claude_content = generate_claude(args.name, args.desc, args.stack, args.locale, args.commit_format, plugin_root)
+        claude_content = generate_claude(args.name, args.desc, final_stack, args.locale, args.commit_format, plugin_root)
         claude_path = base_path / "CLAUDE.md"
         if write_file_if_not_exists(claude_path, claude_content):
             result["files_created"].append("CLAUDE.md")

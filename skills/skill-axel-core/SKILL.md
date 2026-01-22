@@ -73,9 +73,9 @@ allowed-tools:
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Workflow.md" ask="workflow, process, step"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Skill.md" ask="skill, expertise, capability"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Command.md" ask="command, slash, invoke"/>
-    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Brainstorm.md" ask="brainstorm, discovery, ideation"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Memory.md" ask="memory, context, persistence"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Claude.md" ask="claude, configuration, project"/>
+    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/references/AXEL-Research.md" ask="research, investigation, analysis"/>
     <understanding>
       !! LOAD ON-DEMAND: Trigger Mismatch Fallback !!
 
@@ -97,7 +97,7 @@ allowed-tools:
 
       Available References:
       - Standards & Conventions (structural rules)
-      - All AXEL document types (Agent, Workflow, Skill, Command, Memory, Brainstorm, Claude)
+      - All AXEL document types (Agent, Workflow, Skill, Command, Memory, Claude, Research)
     </understanding>
   </documents>
 
@@ -116,14 +116,13 @@ allowed-tools:
   </capabilities>
 
   <workflows name="operations" load="on-trigger">
-    <!-- brainstorm -->
-    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/brainstorm/AXEL-Brainstorm-Bootstrap.md" trigger="brainstorm"/>
     <!-- creators -->
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Agent-Creator-Workflow.md" trigger="create:agent"/>
-    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Brainstorm-Creator-Workflow.md" trigger="create:brainstorm"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Workflow-Creator-Workflow.md" trigger="create:workflow"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Skill-Creator-Workflow.md" trigger="create:skill"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Command-Creator-Workflow.md" trigger="create:command"/>
+    <!-- research -->
+    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/research/AXEL-Research-Workflow.md" trigger="research"/>
     <!-- utilities -->
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Fix-Workflow.md" trigger="fix"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/utilities/AXEL-Compact-Workflow.md" trigger="compact"/>
@@ -149,15 +148,14 @@ allowed-tools:
 
       Keyword Priority (first match):
       1. "create" + "agent"      → create:agent
-      2. "create" + "brainstorm" → create:brainstorm
-      3. "create" + "workflow"   → create:workflow
-      4. "create" + "skill"      → create:skill
-      5. "create" + "command"    → create:command
-      6. "brainstorm"            → brainstorm
-      7. "validate" | "fix"      → validate
-      8. "compact" | "archive"   → compact
-      9. "bypass" | "permissions"→ bypass
-      10. "install" | "init"     → install
+      2. "create" + "workflow"   → create:workflow
+      3. "create" + "skill"      → create:skill
+      4. "create" + "command"    → create:command
+      5. "research" | "investigate" → research
+      6. "validate" | "fix"      → fix
+      7. "compact" | "archive"   → compact
+      8. "bypass" | "permissions"→ bypass
+      9. "install" | "init"     → install
 
     Step 3 - Match Workflow:
     - Check if resolved trigger matches workflows:operations registry

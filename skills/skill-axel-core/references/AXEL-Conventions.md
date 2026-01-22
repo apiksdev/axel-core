@@ -57,7 +57,7 @@ type: reference
     - kebab-case always
     - skill prefix: skill-{name}
     - agent prefix: agent-{name}
-    - Examples: skill-axel-expert, agent-project-brainstorm
+    - Examples: skill-axel-expert, agent-code-reviewer
 
     Stage IDs:
     - Simple kebab-case: init, parse-input, validate-result, complete

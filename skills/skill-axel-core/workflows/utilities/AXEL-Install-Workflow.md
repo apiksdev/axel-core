@@ -40,6 +40,7 @@ allowed-tools:
     <var name="project_name" from="param.project_name"/>
     <var name="project_desc" from="param.project_desc"/>
     <var name="tech_stack" from="param.tech_stack"/>
+    <var name="dotnet_version" from="param.dotnet_version" default=""/>
     <var name="locale" from="param.locale" default="en"/>
     <var name="commit_format" from="param.commit_format" default="conventional"/>
   </variables>
@@ -56,7 +57,9 @@ allowed-tools:
         - var: project_desc
           prompt: "Project description:"
         - var: tech_stack
-          prompt: "Tech stack (e.g.: typescript, react, nodejs):"
+          prompt: "Tech stack:"
+          options: [dotnet-csharp, typescript, javascript+nodejs, react+typescript, python, java, go, rust, php, other]
+          default: dotnet-csharp
         - var: locale
           prompt: "Default locale:"
           default: en
@@ -65,6 +68,19 @@ allowed-tools:
           options: [single-line, conventional, detailed]
           default: conventional
       </ask>
+      <goto to="check-dotnet"/>
+    </stage>
+
+    <!-- check-dotnet: If .NET selected, ask for version -->
+    <stage id="check-dotnet">
+      <if condition="${tech_stack} == 'dotnet-csharp'">
+        <ask>
+          - var: dotnet_version
+            prompt: "Which .NET version?"
+            options: [dotnet-8, dotnet-6, dotnet-core-3.1, dotnet-framework-4.8]
+            default: dotnet-8
+        </ask>
+      </if>
       <goto to="execute"/>
     </stage>
 
@@ -72,7 +88,7 @@ allowed-tools:
     <stage id="execute">
       <print>Running installation...</print>
       <bash output="install_result"><![CDATA[
-PYTHONIOENCODING=utf-8 python "${script_path}" --name "${project_name}" --desc "${project_desc}" --stack "${tech_stack}" --locale "${locale}" --commit-format "${commit_format}" --plugin-root "${plugin_root}" --cwd "${cwd}"
+PYTHONIOENCODING=utf-8 python "${script_path}" --name "${project_name}" --desc "${project_desc}" --stack "${tech_stack}" --dotnet-version "${dotnet_version}" --locale "${locale}" --commit-format "${commit_format}" --plugin-root "${plugin_root}" --cwd "${cwd}"
       ]]></bash>
       <goto to="complete"/>
     </stage>

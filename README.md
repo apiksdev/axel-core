@@ -247,10 +247,9 @@ your-project/
     ├── references/              # Technical references
     ├── workspaces/
     │   └── default/
-    │       └── todos/
-    │           ├── pending/
-    │           ├── in-progress/
-    │           └── completed/
+    │       ├── pending/
+    │       ├── in-progress/
+    │       └── completed/
     ├── BOOTSTRAP.md             # Bootstrap loader (auto-loaded)
     ├── MEMORIES.md              # Session records
     └── LEARNED.md               # Learned lessons
@@ -260,21 +259,22 @@ your-project/
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `/axel:install` | Initialize AXEL structure with folders and configuration files |
-| `/axel:create` | Create AXEL documents (agent, workflow, skill, command) |
-| `/axel:fix` | Validate AXEL document against Bootstrap rules, show numbered inconsistencies, and apply user-selected fixes |
-| `/axel:run` | Execute a single AXEL workflow file |
-| `/axel:brainstorm` | Start AXEL brainstorming session for discovery and ideation |
-| `/axel:memories` | Memory management - load memory files |
-| `/axel:session-save` | Save current session context to MEMORIES.md |
-| `/axel:learned-save` | Save learned lesson to LEARNED.md |
-| `/axel:compact` | Compact memories (session/learned) to archive |
-| `/axel:commit` | Smart git commit with AI-generated messages from CLAUDE.md configuration |
-| `/axel:bypass-permissions` | Toggle Claude Code permission bypass mode on/off |
-| `/axel:yo` | Hey, let me confirm I understand what you want before I do anything |
-| `/axel:core` | Execute skill-axel-core with trigger-based workflow dispatch |
+| Command                    | Description                                                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `/axel:install`            | Initialize AXEL structure with folders and configuration files                                               |
+| `/axel:create`             | Create AXEL documents (agent, workflow, skill, command)                                                      |
+| `/axel:fix`                | Validate AXEL document against Bootstrap rules, show numbered inconsistencies, and apply user-selected fixes |
+| `/axel:run`                | Execute a single AXEL workflow file                                                                          |
+| `/axel:memories`           | Memory management - load memory files                                                                        |
+| `/axel:session-save`       | Save current session context to MEMORIES.md                                                                  |
+| `/axel:learned-save`       | Save learned lesson to LEARNED.md                                                                            |
+| `/axel:compact`            | Compact memories (session/learned) to archive                                                                |
+| `/axel:changelog`          | Manage CHANGELOG.md with automatic version bumping and git change analysis                                   |
+| `/axel:commit`             | Smart git commit with AI-generated messages from CLAUDE.md configuration                                     |
+| `/axel:research`           | Start AXEL research session - comprehensive research with Pure Markdown output                               |
+| `/axel:bypass-permissions` | Toggle Claude Code permission bypass mode on/off                                                             |
+| `/axel:yo`                 | Hey, let me confirm I understand what you want before I do anything                                          |
+| `/axel:core`               | Execute skill-axel-core with trigger-based workflow dispatch                                                 |
 
 ### Command Details
 
@@ -325,16 +325,6 @@ Execute a single AXEL workflow file (stateless).
 /axel:run .claude/workflows/build-deploy.md
 ```
 
-#### `/axel:brainstorm`
-Start brainstorming session for discovery and ideation.
-
-```bash
-/axel:brainstorm [topic]
-
-# Example:
-/axel:brainstorm implement user authentication
-```
-
 #### `/axel:memories`
 Load memory files (session/learned).
 
@@ -358,8 +348,33 @@ Archive memory files.
 /axel:compact memories learned   # Archive learned memories
 ```
 
+#### `/axel:changelog`
+Manage CHANGELOG.md with automatic version bumping and git change analysis.
+
+Features:
+- Semantic versioning (MAJOR.MINOR.PATCH)
+- Git change analysis (excludes whitespace-only changes)
+- Multi-project type support (Claude Plugin, Node.js, Python, Rust, PHP, .NET)
+- Optional version file sync
+- CURRENT version option for iterative development
+- Optional commit integration with `/axel:commit`
+
+```bash
+/axel:changelog
+```
+
 #### `/axel:commit`
 Smart git commit with AI-generated messages from CLAUDE.md configuration.
+
+#### `/axel:research`
+Start comprehensive research session with Pure Markdown output.
+
+```bash
+/axel:research {topic}
+
+# Example:
+/axel:research React Server Components
+```
 
 #### `/axel:bypass-permissions`
 Toggle Claude Code permission bypass mode on/off.
@@ -425,6 +440,7 @@ type: workflow
 | [workflow](#workflow)   | Multi-step process       | Stage-based flow management        |
 | [command](#command)     | Slash command definition | `/command` triggered operations    |
 | [memory](#memory)       | Memory record            | Session and learned records        |
+| [research](#research)   | Research documentation   | Investigation and analysis output  |
 
 
 ---
@@ -674,6 +690,45 @@ Stores session information and learned lessons.
 
 ---
 
+## Research
+
+Comprehensive research and analysis documentation with Pure Markdown output.
+
+**Generated by**: `/axel:research` command
+
+**Output Format**: Pure Markdown (no AXEL XML structure)
+
+Research documents provide:
+- Topic exploration and analysis
+- Structured findings and insights
+- References and sources
+- Key takeaways and recommendations
+
+**Example Structure**:
+```markdown
+# Research: [Topic Name]
+
+## Overview
+Brief introduction to the research topic
+
+## Key Findings
+- Finding 1
+- Finding 2
+- Finding 3
+
+## Analysis
+Detailed analysis and insights
+
+## Recommendations
+Actionable recommendations based on research
+
+## References
+- Source 1
+- Source 2
+```
+
+---
+
 ## Project Structure
 
 ```
@@ -684,8 +739,8 @@ axel-core/
 ├── CLAUDE.md                    # Project configuration
 ├── README.md                    # This file
 ├── commands/                    # Slash command definitions
-│   ├── axel-brainstorm.md
 │   ├── axel-bypass-permissions.md
+│   ├── axel-changelog.md
 │   ├── axel-commit.md
 │   ├── axel-compact.md
 │   ├── axel-core.md
@@ -694,6 +749,7 @@ axel-core/
 │   ├── axel-install.md
 │   ├── axel-learned-save.md
 │   ├── axel-memories.md
+│   ├── axel-research.md
 │   ├── axel-run.md
 │   ├── axel-session-save.md
 │   └── axel-yo.md
@@ -704,11 +760,20 @@ axel-core/
 │   └── skill-axel-core/
 │       ├── SKILL.md             # Main skill definition
 │       ├── references/          # Reference documentation
+│       │   ├── AXEL-Agent.md
+│       │   ├── AXEL-Command.md
+│       │   ├── AXEL-Conventions.md
+│       │   ├── AXEL-Memory.md
+│       │   ├── AXEL-Research.md
+│       │   ├── AXEL-Skill.md
+│       │   ├── AXEL-Standards.md
+│       │   └── AXEL-Workflow.md
 │       ├── scripts/             # Python utility scripts
 │       ├── templates/           # Document templates
+│       │   └── research/        # Research templates
 │       └── workflows/           # Workflow definitions
-│           ├── brainstorm/      # Brainstorming workflows
 │           ├── creators/        # Document creator workflows
+│           ├── research/        # Research workflows
 │           └── utilities/       # Utility workflows
 └── references/                  # Core references
     ├── AXEL-Core.md

@@ -27,7 +27,7 @@ type: reference
     Purpose: Root container for all AXEL documents
 
     Example:
-    <document type="project|skill|agent|workflow|command|memory|brainstorm|reference" entry="cmd:main">
+    <document type="project|skill|agent|workflow|command|memory|reference" entry="cmd:main">
       <enforcement>...</enforcement>
       <objective>...</objective>
       <execution>...</execution>
@@ -90,7 +90,7 @@ type: reference
     ]]>
     </element>
 
-    <element name="documents" depth="1" document_types="project,skill,agent,workflow,command,brainstorm,reference" parent="document">
+    <element name="documents" depth="1" document_types="project,skill,agent,workflow,command,reference" parent="document">
     <![CDATA[
     Purpose: Document registry - references to load
 
@@ -280,15 +280,15 @@ type: reference
     ]]>
     </element>
 
-    <element name="objective" depth="1" document_types="skill,agent,workflow,command,brainstorm,reference" parent="document">
+    <element name="objective" depth="1" document_types="skill,agent,workflow,command,reference" parent="document">
     <![CDATA[
     Purpose: Describe what the document does (1-3 sentences)
     Format: Short description text
 
     Example:
     <objective>
-      Manage project brainstorm documents.
-      Lists, creates, and edits brainstorm files.
+      Manage project workflow documents.
+      Lists, creates, and edits workflow files.
     </objective>
     ]]>
     </element>
@@ -448,249 +448,6 @@ type: reference
       Pattern: Use to="stage-id" for all jumps
       Reason: Consistent flow control
     </decision>
-    ]]>
-    </element>
-
-    <element name="scope" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Define boundaries of work
-
-    Example:
-    <scope>
-      Include:
-      - User authentication module
-      Exclude:
-      - OAuth integration (phase 2)
-      Boundaries:
-      - Backend only
-    </scope>
-    ]]>
-    </element>
-
-    <element name="current_state" depth="1" document_types="brainstorm" parent="document" brainstorm_type="migration">
-    <![CDATA[
-    Purpose: Document current system state (migration todos)
-    Format: Bullet list describing current state
-
-    Example:
-    <current_state>
-      - Database: MySQL 5.7
-      - Auth: Cookie-based sessions
-    </current_state>
-    ]]>
-    </element>
-
-    <element name="target_state" depth="1" document_types="brainstorm" parent="document" brainstorm_type="migration">
-    <![CDATA[
-    Purpose: Define desired end state (migration todos)
-    Format: Bullet list describing target state
-
-    Example:
-    <target_state>
-      - Database: PostgreSQL 15
-      - Auth: JWT with refresh tokens
-    </target_state>
-    ]]>
-    </element>
-
-    <element name="user_request" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Capture original user request
-    Format: Verbatim or summarized request text
-
-    Example:
-    <user_request>
-      Add user authentication with email/password login,
-      JWT tokens, and remember me functionality.
-    </user_request>
-    ]]>
-    </element>
-
-    <element name="interpretation" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Summarize understanding of request
-    Format: Bullet list of interpreted requirements
-
-    Example:
-    <interpretation>
-      - Implement email/password authentication
-      - Use JWT for stateless session management
-    </interpretation>
-    ]]>
-    </element>
-
-    <element name="context_findings" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Document findings from context gathering
-    Format: Categorized findings
-
-    Example:
-    <context_findings>
-      Project Documents:
-      - CLAUDE.md: .NET 8 backend, React frontend
-
-      Codebase:
-      - Existing User entity in src/Models/
-
-      External:
-      - JWT best practices from OWASP
-    </context_findings>
-    ]]>
-    </element>
-
-    <element name="affected_components" depth="1" document_types="brainstorm" parent="document" brainstorm_type="feature,code-review,migration">
-    <![CDATA[
-    Purpose: List components that will be modified
-    Format: Bullet list with file paths
-
-    Example:
-    <affected_components>
-      Backend:
-      - src/Services/AuthService.cs (create)
-      - src/Models/User.cs (alter)
-
-      Frontend:
-      - src/pages/LoginPage.tsx (create)
-    </affected_components>
-    ]]>
-    </element>
-
-    <element name="tech_stack" depth="1" document_types="brainstorm" parent="document" brainstorm_type="project">
-    <![CDATA[
-    Purpose: Define project technology stack
-    Format: Categorized tech list
-
-    Example:
-    <tech_stack>
-      Backend:
-      - Language: C# / .NET 9
-      - Database: PostgreSQL 15
-
-      Frontend:
-      - Framework: React 18
-      - Language: TypeScript 5
-
-      Infrastructure:
-      - Hosting: Docker + Kubernetes
-    </tech_stack>
-    ]]>
-    </element>
-
-    <element name="review_criteria" depth="1" document_types="brainstorm" parent="document" brainstorm_type="code-review">
-    <![CDATA[
-    Purpose: Define code review criteria
-    Format: Categorized criteria list
-
-    Example:
-    <review_criteria>
-      Critical:
-      - Security vulnerabilities
-
-      Major:
-      - Performance bottlenecks
-
-      Minor:
-      - Naming conventions
-    </review_criteria>
-    ]]>
-    </element>
-
-    <element name="questions_to_answer" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Questions that need answers
-    Format: Categorized question list
-
-    Example:
-    <questions_to_answer>
-      Functional:
-      - What password requirements?
-
-      Technical:
-      - Which JWT library to use?
-
-      Design:
-      - Login page layout requirements?
-    </questions_to_answer>
-    ]]>
-    </element>
-
-    <element name="sources_to_check" depth="1" document_types="brainstorm" parent="document" brainstorm_type="research">
-    <![CDATA[
-    Purpose: External sources to research
-    Format: Categorized source list
-
-    Example:
-    <sources_to_check>
-      Documentation:
-      - Microsoft Identity documentation
-
-      Best Practices:
-      - OWASP authentication guidelines
-
-      Comparisons:
-      - JWT vs Session comparison articles
-    </sources_to_check>
-    ]]>
-    </element>
-
-    <element name="suggested_documents" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Files to include in todo context
-    Format: Categorized file list
-
-    Note: Use @ prefix for codebase files
-
-    Example:
-    <suggested_documents>
-      Reference Files:
-      - references/auth-patterns.md
-
-      Codebase Files:
-      - @src/Models/User.cs
-
-      External:
-      - https://jwt.io/introduction
-    </suggested_documents>
-    ]]>
-    </element>
-
-    <element name="open_questions" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Unresolved questions needing user input
-    Format: Numbered question list
-
-    Example:
-    <open_questions>
-      1. Should we support social login?
-      2. What is the session timeout requirement?
-    </open_questions>
-    ]]>
-    </element>
-
-    <element name="assumptions" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Document implicit assumptions
-    Format: Bullet list of assumptions
-
-    Example:
-    <assumptions>
-      - Users have valid email addresses
-      - HTTPS is enforced in production
-    </assumptions>
-    ]]>
-    </element>
-
-    <element name="next_steps" depth="1" document_types="brainstorm" parent="document">
-    <![CDATA[
-    Purpose: Recommended next actions
-    Format: Numbered action list
-
-    Example:
-    <next_steps>
-      1. Resolve open questions with user
-      2. Create coding todo
-      3. Start implementation
-    </next_steps>
     ]]>
     </element>
 
@@ -1093,9 +850,9 @@ type: reference
     Purpose: Terminology definition for glossary documents
 
     Example:
-    <term name="brainstorm">
-      - Definition: Discovery document for understanding requirements before planning
-      - Usage: Use before creating implementation todos to gather context
+    <term name="workflow">
+      - Definition: Multi-step process document with staged or linear execution
+      - Usage: Use to define complex operations with multiple stages
     </term>
 
     Notes:

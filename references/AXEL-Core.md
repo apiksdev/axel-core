@@ -43,7 +43,6 @@ type: reference
     - `command` → Slash command definition
     - `memory` → Memory record (session, learned, todo, backlog)
     - `todo` → Task plan (coding, analysis, research, migration)
-    - `brainstorm` → Discovery document (feature, project, research, code-review, migration)
     - `reference` → Technical documentation (patterns: howto, knowledge, glossary, enforcement, standards, checklist, component)
   </principle>
 
