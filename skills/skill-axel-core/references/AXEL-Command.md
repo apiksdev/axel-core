@@ -293,6 +293,7 @@ type: reference
   <requirements>
     - Frontmatter must have name, description, type: command
     - Document root must have type="command" and entry="cmd:main"
+    - Must include locale compliance enforcement rule (chat vs docs/code language)
     - Single <command id="cmd:main"> for routing only
     - All stages inside <execution> wrapper
     - Every stage must end with <stop> or <goto>
@@ -373,6 +374,7 @@ allowed-tools:                  # Tools that can be used
     - Is there a single <command id="cmd:main"> block?
     - Is there an <execution> wrapper?
     - Are all stages inside <execution>?
+    - Is locale compliance rule in enforcement (chat vs docs/code)?
 
     Routing:
     - Does cmd:main contain ONLY <goto> tags?
@@ -408,6 +410,7 @@ allowed-tools:                  # Tools that can be used
     - [ ] single <command id="cmd:main"> for routing?
     - [ ] <execution> wrapper present?
     - [ ] all stages inside execution?
+    - [ ] locale compliance rule in enforcement (chat vs docs/code)?
 
     Routing (cmd:main):
     - [ ] only <goto> tags?

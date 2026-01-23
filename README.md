@@ -262,7 +262,7 @@ your-project/
 | Command                    | Description                                                                                                  |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `/axel:install`            | Initialize AXEL structure with folders and configuration files                                               |
-| `/axel:create`             | Create AXEL documents (agent, workflow, skill, command)                                                      |
+| `/axel:create`             | Create AXEL documents (agent, workflow, skill, command, bootstrap)                                           |
 | `/axel:fix`                | Validate AXEL document against Bootstrap rules, show numbered inconsistencies, and apply user-selected fixes |
 | `/axel:run`                | Execute a single AXEL workflow file                                                                          |
 | `/axel:memories`           | Memory management - load memory files                                                                        |
@@ -270,6 +270,7 @@ your-project/
 | `/axel:learned-save`       | Save learned lesson to LEARNED.md                                                                            |
 | `/axel:compact`            | Compact memories (session/learned) to archive                                                                |
 | `/axel:changelog`          | Manage CHANGELOG.md with automatic version bumping and git change analysis                                   |
+| `/axel:versions`           | Check plugin versions against marketplace and GitHub                                                         |
 | `/axel:commit`             | Smart git commit with AI-generated messages from CLAUDE.md configuration                                     |
 | `/axel:research`           | Start AXEL research session - comprehensive research with Pure Markdown output                               |
 | `/axel:bypass-permissions` | Toggle Claude Code permission bypass mode on/off                                                             |
@@ -288,10 +289,11 @@ Create AXEL documents with type-specific templates.
 /axel:create {type} [topic]
 
 # Available types:
-# - agent    : Autonomous task executor
-# - workflow : Multi-step process
-# - skill    : Expert role definition
-# - command  : Slash command definition
+# - agent     : Autonomous task executor
+# - workflow  : Multi-step process
+# - skill     : Expert role definition
+# - command   : Slash command definition
+# - bootstrap : Project bootstrap file
 
 # Examples:
 /axel:create agent code-reviewer
@@ -302,6 +304,7 @@ Create AXEL documents with type-specific templates.
 /axel:create skill api-designer
 /axel:create command generate-tests
 /axel:create command sync-translations
+/axel:create bootstrap
 ```
 
 #### `/axel:fix`
@@ -361,6 +364,19 @@ Features:
 
 ```bash
 /axel:changelog
+```
+
+#### `/axel:versions`
+Check plugin versions against marketplace and GitHub.
+
+Features:
+- Compare local vs remote versions
+- Marketplace integration
+- Semantic version comparison
+- Status indicators (up-to-date, update available, ahead)
+
+```bash
+/axel:versions
 ```
 
 #### `/axel:commit`
@@ -741,6 +757,7 @@ axel-core/
 ├── commands/                    # Slash command definitions
 │   ├── axel-bypass-permissions.md
 │   ├── axel-changelog.md
+│   ├── axel-versions.md
 │   ├── axel-commit.md
 │   ├── axel-compact.md
 │   ├── axel-core.md
@@ -761,6 +778,7 @@ axel-core/
 │       ├── SKILL.md             # Main skill definition
 │       ├── references/          # Reference documentation
 │       │   ├── AXEL-Agent.md
+│       │   ├── AXEL-Claude.md
 │       │   ├── AXEL-Command.md
 │       │   ├── AXEL-Conventions.md
 │       │   ├── AXEL-Memory.md
@@ -776,6 +794,7 @@ axel-core/
 │           ├── research/        # Research workflows
 │           └── utilities/       # Utility workflows
 └── references/                  # Core references
+    ├── AXEL-Checklist.md
     ├── AXEL-Core.md
     ├── AXEL-Enforcement.md
     └── AXEL-Understanding.md

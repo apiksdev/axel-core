@@ -23,6 +23,7 @@ allowed-tools:
     - workflow → create:workflow
     - skill → create:skill
     - command → create:command
+    - bootstrap → create:bootstrap
     ]]>
   </enforcement>
 
@@ -42,6 +43,7 @@ allowed-tools:
     <goto when="${doc_type} = workflow" to="route"/>
     <goto when="${doc_type} = skill" to="route"/>
     <goto when="${doc_type} = command" to="route"/>
+    <goto when="${doc_type} = bootstrap" to="route"/>
     <goto to="show-usage"/>
   </command>
 
@@ -61,12 +63,14 @@ allowed-tools:
         - `workflow` - Multi-step process
         - `skill` - Expert role definition
         - `command` - Slash command definition
+        - `bootstrap` - Project bootstrap file with document references
 
         **Examples:**
         - `/axel:create agent` - Create new agent
         - `/axel:create workflow data-migration` - Create workflow with topic
         - `/axel:create skill` - Create new skill
         - `/axel:create command` - Create new command
+        - `/axel:create bootstrap` - Create project bootstrap file
       </print>
       <stop kind="end"/>
     </stage>

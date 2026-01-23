@@ -11,6 +11,11 @@ type: template
 
   <enforcement>
     <![CDATA[
+    ⛔ LOCALE COMPLIANCE - CHAT LANGUAGE ONLY
+    - MUST read CLAUDE.md <locale> section for chat responses
+    - Use "communication" field language for conversation/chat messages ONLY
+    - Documents, code, and generated files follow their respective locale settings (code, docs)
+
     ⛔ CONTENT DUPLICATION RULES
     - ❌ NEVER copy content from referenced documents into new documents
     - Referenced documents are already loaded via context or on-demand loading

@@ -87,6 +87,7 @@ type: reference
     - Must have document type="project"
     - Must define project name and stack
     - Must include project-specific enforcement rules
+    - Must include locale compliance enforcement rule (chat vs docs/code language)
     - May reference plugin's AXEL-Bootstrap.md for core rules (optional)
     - Must define locale settings
     - Must include configurations block with:
@@ -340,6 +341,7 @@ version: {version}
     - Does project tag have name attribute?
     - Is stack defined with technologies?
     - Is locale defined with default?
+    - Is locale compliance rule in enforcement (chat vs docs/code)?
     - Is configurations block present?
     - Is AXEL_CORE_PLUGIN_ROOT variable defined?
     - Is COMMIT_MESSAGE_FORMAT variable defined?
@@ -410,6 +412,7 @@ version: {version}
     - Does project tag have name?
     - Is stack defined?
     - Is locale defined?
+    - Is locale compliance rule in enforcement (chat vs docs/code)?
 
     Bootstrap Reference (optional):
     - If using AXEL features, reference plugin's AXEL-Bootstrap.md

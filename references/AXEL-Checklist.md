@@ -41,7 +41,7 @@ type: reference
       <check>Has YAML frontmatter with name, description, type</check>
       <fix>Generate frontmatter from filename and document type</fix>
     </rule>
-    <rule id="fm-name-kebab" severity="warning" auto-fix="true">
+    <rule id="fm-name-kebab" severity="warning" auto-fix="true" when="type!=command">
       <check>Frontmatter name is kebab-case</check>
       <fix>Convert to kebab-case</fix>
     </rule>

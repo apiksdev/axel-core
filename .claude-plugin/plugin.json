@@ -1,7 +1,7 @@
 {
   "name": "axel-core",
   "description": "AXEL (AI XML Execution Language) - provides essential commands, workflows, and skills for structured AI behavior management in Claude Code",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "author": {
     "name": "Apiks"

@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0] - 2026-01-23
+
+- Added `axel-versions` command
+- Added `AXEL-Bootstrap-Creator-Workflow` workflow
+- Updated `axel-changelog` command
+- Updated `axel-create` command (added `bootstrap` type)
+- Updated `axel-yo` command
+- Updated `AXEL-Checklist` reference
+- Updated `SKILL.md` documentation
+- Updated `AXEL-Claude` reference
+- Updated `AXEL-Command` reference
+- Updated `AXEL-Claude-Tpl` template
+- Updated plugin configuration
+- Updated README
+- Removed `axel-checks` command (replaced by `axel-versions`)
+
 ## [1.1.0] - 2026-01-22
 
 - Added `axel-changelog` command

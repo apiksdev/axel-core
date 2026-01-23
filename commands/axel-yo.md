@@ -11,6 +11,12 @@ type: command
 
   <enforcement>
     <![CDATA[
+    ⛔ LOCALE COMPLIANCE - CHAT LANGUAGE ONLY
+
+    - MUST read CLAUDE.md <locale> section for chat responses
+    - Use "communication" field language for conversation/chat messages ONLY
+    - Documents, code, and generated files follow their respective locale settings (code, docs)
+
     ⛔ NO ASSUMPTIONS - ASSUMPTION = TASK FAILED
 
     - NEVER assume without investigating the codebase first

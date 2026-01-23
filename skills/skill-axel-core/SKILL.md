@@ -121,6 +121,7 @@ allowed-tools:
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Workflow-Creator-Workflow.md" trigger="create:workflow"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Skill-Creator-Workflow.md" trigger="create:skill"/>
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Command-Creator-Workflow.md" trigger="create:command"/>
+    <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/creators/AXEL-Bootstrap-Creator-Workflow.md" trigger="create:bootstrap"/>
     <!-- research -->
     <read src="${CLAUDE_PLUGIN_ROOT}/skills/skill-axel-core/workflows/research/AXEL-Research-Workflow.md" trigger="research"/>
     <!-- utilities -->
@@ -151,11 +152,12 @@ allowed-tools:
       2. "create" + "workflow"   → create:workflow
       3. "create" + "skill"      → create:skill
       4. "create" + "command"    → create:command
-      5. "research" | "investigate" → research
-      6. "validate" | "fix"      → fix
-      7. "compact" | "archive"   → compact
-      8. "bypass" | "permissions"→ bypass
-      9. "install" | "init"     → install
+      5. "create" + "bootstrap"  → create:bootstrap
+      6. "research" | "investigate" → research
+      7. "validate" | "fix"      → fix
+      8. "compact" | "archive"   → compact
+      9. "bypass" | "permissions"→ bypass
+      10. "install" | "init"     → install
 
     Step 3 - Match Workflow:
     - Check if resolved trigger matches workflows:operations registry

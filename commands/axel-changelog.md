@@ -273,7 +273,54 @@ type: command
       → Store version_file_updated = false
       → Skip (Generic project, CHANGELOG only)
 
-    Step 12 - Summary:
+    Step 12 - Analyze README.md Updates:
+    - Read README.md from git root
+    - IF README.md doesn't exist → Skip to Step 13
+
+    - Analyze git changes against README sections:
+      → Check commands/ folder changes:
+        * New command file added? → Commands table needs update
+        * Command file deleted? → Commands table needs update
+      → Check project structure changes:
+        * New folder created? → Project Structure needs update
+        * New important file added? → Project Structure needs update
+      → Check scripts/ changes:
+        * New script added? → Scripts table needs update
+        * Script removed? → Scripts table needs update
+
+    - Build readme_updates list with sections that need changes
+    - Store affected sections and proposed changes
+
+    - IF readme_updates is empty:
+      → Print: "📄 README.md: No updates needed"
+      → Skip to Step 13
+
+    - IF readme_updates is not empty:
+      → Print proposed updates:
+        "📄 **README.md Updates Detected:**"
+        For each update in readme_updates:
+          "  - ${section}: ${change_description}"
+
+      → Ask user for confirmation using AskUserQuestion:
+        Question: "Update README.md with these changes?"
+        Header: "README Update"
+        Options:
+          1. "Yes, update README.md"
+             Description: "Apply the detected changes to README.md"
+          2. "No, skip README update"
+             Description: "Keep README.md unchanged"
+
+      → IF user selected "Yes":
+        → For each section in readme_updates:
+          → Use Edit tool to update the section
+        → Store readme_updated = true
+        → Print: "✅ Updated README.md"
+
+      → IF user selected "No":
+        → Store readme_updated = false
+        → Print: "⏭️ Skipped README.md update"
+
+    Step 13 - Summary:
     - Print final summary:
       ```
       ✅ Changelog updated successfully!
@@ -286,12 +333,13 @@ type: command
       Files updated:
       - CHANGELOG.md
       ${version_file_updated ? "- " + version_file : ""}
+      ${readme_updated ? "- README.md" : ""}
 
       Changes logged:
       ${change_bullets}
       ```
 
-    Step 13 - Commit Changes (Optional):
+    Step 14 - Commit Changes (Optional):
     - Ask user for confirmation using AskUserQuestion:
       Question: "Commit all changes now?"
       Header: "Git Commit"
