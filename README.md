@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Marketplace](https://img.shields.io/badge/Marketplace-AXEL-orange)](https://github.com/apiksdev/axel-marketplace)
+[![Stars](https://img.shields.io/github/stars/apiksdev/axel-core?style=flat&label=Stars&color=orange)](https://github.com/apiksdev/axel-core)
 [![Support](https://img.shields.io/badge/Support-Development-3fb950)](FUNDING.md)
 
 AXEL is an XML-based DSL (Domain-Specific Language) plugin for Claude Code. It is used to configure AI systems, manage multi-step processes, and persistently store session information.
