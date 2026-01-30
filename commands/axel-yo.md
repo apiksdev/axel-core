@@ -2,6 +2,11 @@
 name: axel:yo
 description: Hey, let me confirm I understand what you want before I do anything
 type: command
+allowed-tools:
+  - AskUserQuestion
+  - Glob
+  - Grep
+  - Read
 ---
 
 # AXEL Command: /axel:yo
@@ -16,6 +21,19 @@ type: command
     - MUST read CLAUDE.md <locale> section for chat responses
     - Use "communication" field language for conversation/chat messages ONLY
     - Documents, code, and generated files follow their respective locale settings (code, docs)
+      
+	⛔ **TONE RULES**
+	
+	  - Be constructive and solution-oriented, offer suggestions instead of criticism
+	  - Do not question the user's decisions, support and improve them
+	  - Use "this can be improved as..." instead of "wrong" or "incorrect"
+	  - Use short and clear sentences, avoid unnecessary explanations
+	  - Be empathetic but do not give exaggerated praise or approval
+	  - Remain neutral and objective on technical matters
+	  - Do not argue with the user, if they have a different opinion accept it and move on
+	  - Focus on solutions rather than emphasizing negative scenarios
+	  - Maintain a patient and helpful attitude
+	  - Keep professional distance, neither too formal nor too casual      
 
     ⛔ NO ASSUMPTIONS - ASSUMPTION = TASK FAILED
 
@@ -40,12 +58,41 @@ type: command
     - MUST wait for user approval
     - NO skill delegation - direct execution
     - Investigation step CANNOT be skipped
+      
+  ⛔ **DETERMINISTIC OUTPUT RULES**
+
+  - Always give the same answer to the same question, do not produce variations
+  - Do not offer alternative solutions, suggest only the single best solution
+  - In case of ambiguity, use the default choice, do not ask the user
+  - Do not generate random examples or variable names, use consistent naming
+  - Do not change code style, always apply the defined convention
+  - Do not use phrases like "You could also..." or "Alternatively..."
+  - Keep explanations brief, provide only necessary information
+  - Always recommend the same library/framework for the same function
+  - Use alphabetical or logical fixed order where ordering is required
+  - Use consistent language and tone in comments and explanations      
     ]]>
   </enforcement>
 
   <objective>
-    Confirm AI understanding of task before execution.
-    "Yo, this is what I'm gonna do - cool?"
+    Task understanding and planning assistant.
+    "Yo, let me make sure I got this right before I do anything."
+
+    Purpose:
+    - Prevents misunderstandings before work begins
+    - Ensures AI and user are aligned on the task
+    - Creates actionable todo list with verification steps
+    - Gives user full control over what happens next
+
+    Flow:
+    User request → Investigation → Problem + Todos + Verification → User decides
+
+    User Options:
+    - "Start" → Execute todos, then verify
+    - "Add more" → Expand the todo list
+    - "Save as todo" → /axel:todos create {arguments}
+    - "Save as backlog" → /axel:backlogs create {arguments}
+    - "Cancel" → Stop, no action taken
   </objective>
 
   <variables>
@@ -54,100 +101,134 @@ type: command
 
   <execution flow="linear"><![CDATA[
     IF task is empty:
-      Print help:
+      Print:
         ## /axel:yo
 
-        **Usage:** /axel:yo {what you want me to do}
+        **Usage:** /axel:yo {task}
 
-        **Example:**
-          /axel:yo Add dark mode to settings
-          /axel:yo Fix the login bug
+        **Examples:**
+          /axel:yo Add remember me to login page
+          /axel:yo Fix sidebar menu bug
+          /axel:yo Refactor auth service
 
       STOP
 
-    ELSE:
-      Step 1 - Investigate (MANDATORY):
-      - Read task: ${task}
-      - BEFORE analyzing, search the codebase:
-        * Find related files (Glob/Grep)
-        * Read existing code that will be affected
-        * Check for existing patterns/conventions
-        * Look for similar implementations
-      - Print investigation findings:
-        "🔍 **Investigation:**"
-        - Files found: [list relevant files]
-        - Patterns observed: [existing conventions]
-        - Related code: [similar implementations]
-      - IF no investigation done → STOP, cannot proceed without evidence
+    Step 1 - Investigate (MANDATORY):
+    - Use Glob/Grep to find related files
+    - Read files that will be affected
+    - Check existing patterns/conventions
 
-      Step 2 - Analyze (based on investigation):
-      - Identify: goal, approach, scope
-      - Base ALL conclusions on investigation findings
-      - NO assumptions allowed - only facts from codebase
+    Step 2 - Present (MANDATORY):
+    Print using <output> format with these sections:
+    - 🎯 Problem (what user wants, why it matters)
+    - 📋 Todos (actionable checklist)
+    - ✅ Verification (how to verify each todo works)
+    - 📁 Scope (affected files/areas)
 
-      Step 3 - Present:
-      - Print in this format:
+    Step 3 - Ask User (MANDATORY):
+    MUST call AskUserQuestion tool:
+      question: "What should we do?"
+      options:
+        1. "Start" → go to Step 4
+        2. "Add more" → go to Step 5
+        3. "Save as todo" → go to Step 5
+        4. "Save as backlog" → go to Step 5
+        5. "Cancel" → STOP
 
-        ## Yo! Here's what I understood:
+    Step 4 - Execute (MANDATORY if "Start" selected):
+    FOR each todo in Todos list:
+      - Print: "⏳ [todo]"
+      - Execute the task
+      - Print: "✅ [todo]"
+    After all todos → go to Step 6
 
-        **Task:** ${task}
+    Step 5 - Handle Options (CONDITIONAL):
+    IF "Add more":
+      - Ask: "What should we add?"
+      - Add to Todos list
+      - Go to Step 2
 
-        **Goal:**
-        - [what to achieve - based on investigation]
+    IF "Save as todo":
+      - Invoke: /axel:todos create --title "{Problem}" --items "{Todos}" --scope "{Scope}"
+      - Print: "📝 Saved as todo"
+      - STOP
 
-        **Plan:**
-        - [step 1 - following existing patterns]
-        - [step 2]
-        - [step N]
+    IF "Save as backlog":
+      - Invoke: /axel:backlogs create --title "{Problem}" --description "{Todos}" --scope "{Scope}"
+      - Print: "📋 Added to backlog"
+      - STOP
 
-        **Scope:**
-        - [file/area 1]
-        - [file/area 2]
+    IF "Cancel":
+      - Print: "Cancelled."
+      - STOP
 
-        **Evidence:**
-        - [finding 1 that supports this plan]
-        - [finding 2]
+    Step 6 - Verification Loop (MANDATORY after Step 4):
+    Max 10 iterations to verify and fix issues.
 
-      Step 4 - Confirm:
-      - Ask: "Is this what you meant?"
-      - Options:
-        - "Yes, do it" → proceed with task
-        - "Nope, let me clarify" → get correction, re-investigate, re-present
-        - "Cancel" → stop
+    FOR iteration = 1 to 10:
+      Print: "🔄 Verification Round ${iteration}/10"
 
-      Step 5 - Execute or Stop:
-      - If approved → do the task as understood
-      - If cancelled → stop, no action taken
+      FOR each check in Verification list:
+        IF pass → Print: "✅ [check]: PASS"
+        IF fail:
+          Print: "❌ [check]: FAIL"
+          Analyze and fix the issue
+          Print: "🔧 Fixed: [what was done]"
+
+      IF all checks pass:
+        Print: "✅ All verifications passed!"
+        STOP
+
+    IF still failing after 10 iterations:
+      Print: "⚠️ Max iterations reached. Remaining issues:"
+      List unresolved failures
+      Ask user how to proceed
+      STOP
   ]]></execution>
+  
+  <output format="markdown">
+      ## Yo! Here's what I understood:
+
+      ### 🎯 Problem
+      Login page has no "remember me" option, users have to login every time.
+
+      ### 📋 Todos
+      - [ ] Add checkbox to LoginForm.tsx
+      - [ ] Add token persistence to auth service
+      - [ ] Create localStorage helper
+      - [ ] Clear storage on logout
+
+      ### ✅ Verification
+      - Check "remember me" checkbox and login
+      - Close browser, reopen - should still be logged in
+      - Uncheck and login - should require login after browser close
+
+      ### 📁 Scope
+      - src/components/LoginForm.tsx
+      - src/services/auth.ts
+  </output>
 
   <understanding>
-    ✅ CORRECT BEHAVIOR:
+    ⛔ CONTEXT CHECKLIST (BEFORE STEP 1):
+    - [ ] CLAUDE.md read? → Project standards understood?
+    - [ ] Existing code reviewed? → Patterns understood?
+    - [ ] Similar implementations found? → Conventions applied?
 
-    User: "/axel:yo Add validation to user form"
-    AI: "🔍 Investigation: Searched for form files, found src/components/UserForm.tsx.
-         Read existing validation in src/utils/validators.ts. Pattern uses Zod schema.
-         Found similar validation in LoginForm.tsx using zodResolver."
-    → THEN presents plan based on findings
+    🚫 WORK WITHOUT CONTEXT = INVALID
 
-    User: "/axel:yo Fix the login bug"
-    AI: "🔍 Investigation: Searched for login-related files. Found auth service in
-         src/services/auth.ts. Checked recent changes. Found error handling pattern
-         in similar endpoints."
-    → THEN analyzes based on actual code
+    ⛔ REQUEST INTERPRETATION:
+    - Examine existing similar files BEFORE proposing
+    - Apply PROJECT STANDARDS, not your own habits
+    - Making assumptions = INCORRECT WORK = TASK FAILED
+    - If uncertain → SEARCH first, then propose
 
-    ❌ WRONG BEHAVIOR (FORBIDDEN):
-
-    User: "/axel:yo Add validation to user form"
-    AI: "Goal: Add validation. Plan: I'll use React Hook Form with Yup..."
-    → WRONG: Assumed tech stack without checking codebase
-
-    User: "/axel:yo Fix the login bug"
-    AI: "Goal: Fix login. Plan: The issue is probably in the auth middleware..."
-    → WRONG: Used "probably" without investigating
-
-    User: "/axel:yo Update the config"
-    AI: "Plan: I'll update the config.json file..."
-    → WRONG: Assumed file name/location without searching
+    ⛔ WORKFLOW COMPLIANCE:
+    - Step 1 (Investigate) → CANNOT be skipped
+    - Step 2 (Present) → MUST use exact format
+    - Step 3 (Ask) → MUST use AskUserQuestion tool
+    - Step 6 (Verify) → MUST run after execution
+    - Order CANNOT be changed
+    - "Not necessary" or "we can skip" = NOT ACCEPTABLE
   </understanding>
 
 </document>

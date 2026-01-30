@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2026-01-30
+
+- Updated `axel-yo` command
+
 ## [1.2.0] - 2026-01-23
 
 - Added `axel-versions` command
