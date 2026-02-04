@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2] - 2026-02-04
+
+- Updated `axel-yo` command (changed user interaction from AskUserQuestion to markdown output)
+- Updated `bundle.bootstrap.md` (added BASH TAG EXECUTION enforcement rules)
+- Updated plugin configuration
+
 ## [1.2.1] - 2026-01-30
 
 - Updated `axel-yo` command

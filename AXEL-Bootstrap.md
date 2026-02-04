@@ -8,7 +8,7 @@ type: reference
 # AXEL-Bootstrap
 
 ```xml
-<document type="reference">
+<document type="reference" bundled="true">
 
   <enforcement>
     <![CDATA[
@@ -25,6 +25,13 @@ PATH RESOLUTION:
         - Every rule MUST be applied
         - Skipping a rule = TASK FAILURE
         - If uncertain → ASK the user
+
+        BASH TAG EXECUTION:
+        - MUST use Bash tool for <bash> element execution
+        - ❌ NEVER interpret <bash> content semantically
+        - ❌ NEVER substitute with alternative tools (Glob, Read, Grep)
+        - <bash>command</bash> → Execute EXACTLY this command via Bash tool
+        - Bash tag = LITERAL execution, not semantic interpretation
     ]]>
   </enforcement>
 

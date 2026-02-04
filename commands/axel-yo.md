@@ -3,7 +3,6 @@ name: axel:yo
 description: Hey, let me confirm I understand what you want before I do anything
 type: command
 allowed-tools:
-  - AskUserQuestion
   - Glob
   - Grep
   - Read
@@ -126,14 +125,27 @@ allowed-tools:
     - 📁 Scope (affected files/areas)
 
     Step 3 - Ask User (MANDATORY):
-    MUST call AskUserQuestion tool:
-      question: "What should we do?"
-      options:
-        1. "Start" → go to Step 4
-        2. "Add more" → go to Step 5
-        3. "Save as todo" → go to Step 5
-        4. "Save as backlog" → go to Step 5
-        5. "Cancel" → STOP
+    Print the options as markdown (after synthesis output):
+
+      ---
+      ### What's next?
+      1. Start
+      2. Add more
+      3. Save as todo
+      4. Save as backlog
+      5. Cancel
+
+      _Type a number or your choice:_
+
+    ⛔ THIS STAGE ONLY: DO NOT use AskUserQuestion tool
+    ⛔ STOP here and wait for user's next message
+
+    When user responds, parse their input:
+    - "1" or "start" → user_choice = "start" → go to Step 4
+    - "2" or "add" or "more" → user_choice = "add-more" → go to Step 5
+    - "3" or "todo" → user_choice = "save-todo" → go to Step 5
+    - "4" or "backlog" → user_choice = "save-backlog" → go to Step 5
+    - "5" or "cancel" or anything else → user_choice = "cancel" → STOP
 
     Step 4 - Execute (MANDATORY if "Start" selected):
     FOR each todo in Todos list:
@@ -225,7 +237,7 @@ allowed-tools:
     ⛔ WORKFLOW COMPLIANCE:
     - Step 1 (Investigate) → CANNOT be skipped
     - Step 2 (Present) → MUST use exact format
-    - Step 3 (Ask) → MUST use AskUserQuestion tool
+    - Step 3 (Ask) → MUST print markdown options and STOP
     - Step 6 (Verify) → MUST run after execution
     - Order CANNOT be changed
     - "Not necessary" or "we can skip" = NOT ACCEPTABLE
